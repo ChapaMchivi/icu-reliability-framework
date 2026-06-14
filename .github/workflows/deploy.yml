@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # Updated from v3
 
       - name: Azure Login
-        uses: azure/login@v1
+        uses: azure/login@v2       # Updated from v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
