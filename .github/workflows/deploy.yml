@@ -28,12 +28,11 @@ jobs:
           python-version: '3.10'
 
       - name: Install Dependencies
-        # Files are nested inside the top-level repository folder
-        run: pip install -r ICU_Reliability_Framework/notebooks/icu-mortality-predictor/requirements.txt
+        # Use paths relative to the repository root
+        run: pip install -r icu-mortality-predictor/mlflow-model/requirements.txt
 
       - name: Execute Reliability Pipeline
-        # Files are nested inside the top-level repository folder
         run: |
-          python ICU_Reliability_Framework/src/run_reliability_pipeline.py
+          python src/run_reliability_pipeline.py
         env:
           AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
