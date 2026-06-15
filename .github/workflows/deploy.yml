@@ -30,11 +30,11 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r ICU_Reliability_Framework/requirements.txt
 
       - name: Execute Reliability Pipeline
         run: |
-          python src/run_reliability_pipeline.py
+          python ICU_Reliability_Framework/src/run_reliability_pipeline.py
         env:
           AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     
