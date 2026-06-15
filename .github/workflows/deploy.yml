@@ -28,11 +28,10 @@ jobs:
           python-version: '3.10'
 
       - name: Install Dependencies
-        # Updated path to match the actual location of your requirements.txt
+        # Only use this if requirements.txt is NOT in the root, but inside notebooks/icu-mortality-predictor/
         run: pip install -r notebooks/icu-mortality-predictor/requirements.txt
 
       - name: Execute Reliability Pipeline
-        # Updated path to point to your script correctly relative to the root
         run: |
           python src/run_reliability_pipeline.py
         env:
