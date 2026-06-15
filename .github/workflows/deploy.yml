@@ -28,9 +28,7 @@ jobs:
           python-version: '3.10'
 
       - name: Install Dependencies
-        run: |
-          pip install --upgrade pip
-          pip install -r ICU_Reliability_Framework/notebooks/icu-mortality-predictor/requirements.txt
+        run: pip install -r notebooks/icu-mortality-predictor/requirements.txt
 
       - name: Execute Reliability Pipeline
         run: |
