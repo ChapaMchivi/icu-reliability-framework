@@ -1,0 +1,38 @@
+name: Clinical AI Pipeline Sync
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  deploy-to-azure:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: List Files (Debug)
+        run: ls -R
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        # Use paths relative to the repository root
+        run: pip install -r icu-mortality-predictor/mlflow-model/requirements.txt
+
+      - name: Execute Reliability Pipeline
+        run: |
+          python src/run_reliability_pipeline.py
+        env:
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
