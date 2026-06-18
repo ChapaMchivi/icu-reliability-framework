@@ -1,6 +1,6 @@
 # ICU Reliability Framework: Clinical Mortality Prediction
 
-**Tags:** `#AI-in-Healthcare` `#ClinicalDecisionSupport` `#ReliabilityEngineering` `#AzureML` `#HIPAA-Compliance` `#MortalityPrediction` `#ResponsibleAI`
+`#AI-in-Healthcare` `#ClinicalDecisionSupport` `#ReliabilityEngineering` `#AzureML` `#HIPAA-Compliance` `#MortalityPrediction` `#ResponsibleAI`
 ...
 
 > **Executive Summary:** This framework provides a validated, audit-ready AI pipeline for ICU mortality prediction. Moving beyond simple accuracy, the system prioritizes **Clinical Sensitivity** and **Safety Guardrails**, ensuring that every automated prediction is governed by stringent data privacy protocols and expert-in-the-loop clinical review.
