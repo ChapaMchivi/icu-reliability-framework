@@ -1,0 +1,20 @@
+# 1. Sensitive Data (Crucial for HIPAA)
+*.csv
+*.xlsx
+*.json
+
+# 2. Python / Environment Files
+__pycache__/
+*.py[cod]
+.venv/
+env/
+venv/
+.ipynb_checkpoints/
+
+# 3. Model & Large Artifacts
+# Note: Keep these local or use Git LFS (Large File Storage)
+model.pkl
+mlflow-model/
+
+# 4. OS Files
+.DS_Store

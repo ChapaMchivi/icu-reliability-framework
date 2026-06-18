@@ -1,0 +1,44 @@
+artifact_path: outputs/mlflow-model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.10.19
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: pickle
+    sklearn_version: 1.5.1
+metadata:
+  azureml.base_image: mcr.microsoft.com/azureml/curated/ai-ml-automl-dnn-gpu:43
+  azureml.engine: automl
+mlflow_version: 2.15.1
+model_size_bytes: 1050156
+model_uuid: 8b1a4de97a214bc2af3f40b229e755ba
+run_id: gifted_oxygen_vl294mq35m_207
+signature:
+  inputs: '[{"type": "string", "name": "patient_id", "required": true}, {"type": "integer",
+    "name": "age", "required": true}, {"type": "string", "name": "gender", "required":
+    true}, {"type": "string", "name": "admission_type", "required": true}, {"type":
+    "float", "name": "comorbidity_score", "required": true}, {"type": "float", "name":
+    "heart_rate_mean", "required": true}, {"type": "float", "name": "heart_rate_std",
+    "required": true}, {"type": "float", "name": "heart_rate_max", "required": true},
+    {"type": "float", "name": "heart_rate_min", "required": true}, {"type": "float",
+    "name": "systolic_bp_mean", "required": true}, {"type": "float", "name": "systolic_bp_std",
+    "required": true}, {"type": "float", "name": "respiratory_rate_mean", "required":
+    true}, {"type": "float", "name": "spo2_mean", "required": true}, {"type": "float",
+    "name": "temperature_mean", "required": true}, {"type": "float", "name": "glucose_mean",
+    "required": true}, {"type": "float", "name": "lactate_mean", "required": true},
+    {"type": "float", "name": "urine_output_total", "required": true}, {"type": "integer",
+    "name": "ventilation_required", "required": true}, {"type": "integer", "name":
+    "vasopressor_used", "required": true}, {"type": "float", "name": "length_of_stay_days",
+    "required": true}, {"type": "float", "name": "apache_score", "required": true},
+    {"type": "float", "name": "sofa_score", "required": true}, {"type": "integer",
+    "name": "sepsis_flag", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+  params: null
+utc_time_created: '2026-06-07 04:12:54.626638'

@@ -1,0 +1,876 @@
+{
+  "cells": [
+    {
+      "cell_type": "code",
+      "source": [
+        "import os\n",
+        "import sys\n",
+        "\n",
+        "# 1. Print where the notebook is currently running\n",
+        "print(f\"I am currently running in: {os.getcwd()}\")\n",
+        "\n",
+        "# 2. Print what the notebook sees in its immediate folder\n",
+        "print(f\"Files currently in this folder: {os.listdir()}\")\n",
+        "\n",
+        "# 3. Add the project root to the path so it can 'see' the src folder\n",
+        "# We join the current path to the parent directory\n",
+        "project_root = os.path.abspath(os.path.join(os.getcwd(), '..'))\n",
+        "sys.path.append(project_root)\n",
+        "\n",
+        "print(f\"\\nAdded to search path: {project_root}\")"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "I am currently running in: /mnt/batch/tasks/shared/LS_root/mounts/clusters/salomescherer1/code/Users/SalomeScherer/ICU_Reliability_Framework\nFiles currently in this folder: ['.amlignore', '.amlignore.amltmp', '.ipynb_aml_checkpoints', '01_data_import_and_audit.ipynb', '01_data_import_and_audit.ipynb.amltmp', 'notebooks', 'README.md', 'requirements.txt', 'src']\n\nAdded to search path: /mnt/batch/tasks/shared/LS_root/mounts/clusters/salomescherer1/code/Users/SalomeScherer\n"
+        }
+      ],
+      "execution_count": 16,
+      "metadata": {
+        "gather": {
+          "logged": 1781467474747
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import sys\n",
+        "import os\n",
+        "\n",
+        "# 1. Get the absolute path to your 'src' folder\n",
+        "src_dir = os.path.join(os.getcwd(), 'src')\n",
+        "\n",
+        "# 2. Add 'src' itself to the path, NOT the parent directory\n",
+        "if src_dir not in sys.path:\n",
+        "    sys.path.append(src_dir)\n",
+        "\n",
+        "# 3. Import directly from the module file\n",
+        "# Since we added 'src' to the path, we can import data_loader directly\n",
+        "from data_loader import get_ml_client, load_data_from_asset, audit_data\n",
+        "\n",
+        "print(\"Import successful!\")\n",
+        "ml_client = get_ml_client()\n",
+        "print(\"ML Client connected!\")"
+      ],
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "ModuleNotFoundError",
+          "evalue": "No module named 'data_loader'",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+            "Cell \u001b[0;32mIn[18], line 13\u001b[0m\n\u001b[1;32m      9\u001b[0m     sys\u001b[38;5;241m.\u001b[39mpath\u001b[38;5;241m.\u001b[39mappend(src_dir)\n\u001b[1;32m     11\u001b[0m \u001b[38;5;66;03m# 3. Import directly from the module file\u001b[39;00m\n\u001b[1;32m     12\u001b[0m \u001b[38;5;66;03m# Since we added 'src' to the path, we can import data_loader directly\u001b[39;00m\n\u001b[0;32m---> 13\u001b[0m \u001b[38;5;28;01mfrom\u001b[39;00m\u001b[38;5;250m \u001b[39m\u001b[38;5;21;01mdata_loader\u001b[39;00m\u001b[38;5;250m \u001b[39m\u001b[38;5;28;01mimport\u001b[39;00m get_ml_client, load_data_from_asset, audit_data\n\u001b[1;32m     15\u001b[0m \u001b[38;5;28mprint\u001b[39m(\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mImport successful!\u001b[39m\u001b[38;5;124m\"\u001b[39m)\n\u001b[1;32m     16\u001b[0m ml_client \u001b[38;5;241m=\u001b[39m get_ml_client()\n",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'data_loader'"
+          ]
+        }
+      ],
+      "execution_count": 18,
+      "metadata": {
+        "gather": {
+          "logged": 1781467531777
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Import directly—no extra path adjustments needed!\n",
+        "from src.data_loader import get_ml_client, load_data_from_asset, audit_data\n",
+        "\n",
+        "# Test it\n",
+        "ml_client = get_ml_client()\n",
+        "print(\"Success! The functions are ready to use.\")"
+      ],
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "ModuleNotFoundError",
+          "evalue": "No module named 'src.data_loader'",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+            "Cell \u001b[0;32mIn[14], line 2\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[38;5;66;03m# Import directly—no extra path adjustments needed!\u001b[39;00m\n\u001b[0;32m----> 2\u001b[0m \u001b[38;5;28;01mfrom\u001b[39;00m\u001b[38;5;250m \u001b[39m\u001b[38;5;21;01msrc\u001b[39;00m\u001b[38;5;21;01m.\u001b[39;00m\u001b[38;5;21;01mdata_loader\u001b[39;00m\u001b[38;5;250m \u001b[39m\u001b[38;5;28;01mimport\u001b[39;00m get_ml_client, load_data_from_asset, audit_data\n\u001b[1;32m      4\u001b[0m \u001b[38;5;66;03m# Test it\u001b[39;00m\n\u001b[1;32m      5\u001b[0m ml_client \u001b[38;5;241m=\u001b[39m get_ml_client()\n",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'src.data_loader'"
+          ]
+        }
+      ],
+      "execution_count": 14,
+      "metadata": {
+        "gather": {
+          "logged": 1781467426454
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# --- REVISED IMPORT CELL ---\n",
+        "import sys\n",
+        "import os\n",
+        "\n",
+        "# 1. Since the notebook is in the same folder as 'src', \n",
+        "# ensure the CURRENT folder is in the path\n",
+        "current_dir = os.getcwd()\n",
+        "if current_dir not in sys.path:\n",
+        "    sys.path.append(current_dir)\n",
+        "\n",
+        "# 2. Now import directly\n",
+        "try:\n",
+        "    from src.data_loader import get_ml_client, load_data_from_asset, audit_data\n",
+        "    print(\"SUCCESS: Modules imported!\")\n",
+        "except ModuleNotFoundError as e:\n",
+        "    print(f\"Still failing: {e}\")\n",
+        "    print(f\"Current Path: {sys.path}\")\n",
+        "\n",
+        "# 3. Add to path so imports work\n",
+        "if project_root not in sys.path:\n",
+        "    sys.path.append(project_root)\n",
+        "    print(\"Project root added to sys.path.\")\n",
+        "\n",
+        "# 4. Final verify of the package\n",
+        "try:\n",
+        "    import src\n",
+        "    print(\"SUCCESS: 'src' package found and imported.\")\n",
+        "except ImportError as e:\n",
+        "    print(f\"FAILURE: 'src' package not found. Error: {e}\")"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "Still failing: No module named 'src.data_loader'\nCurrent Path: ['/anaconda/envs/azureml_py310_sdkv2/lib/python310.zip', '/anaconda/envs/azureml_py310_sdkv2/lib/python3.10', '/anaconda/envs/azureml_py310_sdkv2/lib/python3.10/lib-dynload', '', '/anaconda/envs/azureml_py310_sdkv2/lib/python3.10/site-packages', '/anaconda/envs/azureml_py310_sdkv2/lib/python3.10/site-packages/setuptools/_vendor', '/anaconda/envs/azureml_py310_sdkv2/lib/python3.10/site-packages/azureml/_project/vendor', '/anaconda/envs/azureml_py310_sdkv2/lib/python3.10/site-packages/azureml/automl/core/_vendor', '/anaconda/envs/azureml_py310_sdkv2/lib/python3.10/site-packages/azureml/automl/runtime/_vendor', '/mnt/batch/tasks/shared/LS_root/mounts/clusters/salomescherer1/code/Users/SalomeScherer', '/mnt/batch/tasks/shared/LS_root/mounts/clusters/salomescherer1/code/Users/SalomeScherer/ICU_Reliability_Framework']\nSUCCESS: 'src' package found and imported.\n"
+        }
+      ],
+      "execution_count": 12,
+      "metadata": {
+        "gather": {
+          "logged": 1781467307338
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Cell 2: Import functions and test access\n",
+        "try:\n",
+        "    from src.data_loader import get_ml_client, load_data_from_asset, audit_data\n",
+        "    print(\"SUCCESS: Functions imported from src.data_loader.\")\n",
+        "    \n",
+        "    # Quick test to ensure functions are functional\n",
+        "    print(\"Testing function availability...\")\n",
+        "    print(f\"get_ml_client: {callable(get_ml_client)}\")\n",
+        "    print(f\"load_data_from_asset: {callable(load_data_from_asset)}\")\n",
+        "    print(f\"audit_data: {callable(audit_data)}\")\n",
+        "    \n",
+        "except Exception as e:\n",
+        "    print(f\"FAILURE: Could not import functions. Error: {e}\")"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "FAILURE: Could not import functions. Error: No module named 'src.data_loader'\n"
+        }
+      ],
+      "execution_count": 6,
+      "metadata": {
+        "gather": {
+          "logged": 1781464390994
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# # --- PART 1: DATA LOADING AND SETUP ---\n",
+        "# from azure.ai.ml import MLClient\n",
+        "# from azure.identity import DefaultAzureCredential\n",
+        "# import pandas as pd\n",
+        "# import mlflow\n",
+        "# import os\n",
+        "\n",
+        "# # 1. Connect to your Azure ML workspace\n",
+        "# ml_client = MLClient.from_config(credential=DefaultAzureCredential())\n",
+        "\n",
+        "# # 2. Retrieve your registered data asset\n",
+        "# data_asset = ml_client.data.get(name=\"ICU_Mortality_Prediction_Dataset_v1\", version=\"1\")\n",
+        "\n",
+        "# # 3. Read the data into a pandas DataFrame\n",
+        "# df = pd.read_csv(data_asset.path)\n",
+        "\n",
+        "# # 4. Data Quality Audit (NEW)\n",
+        "# missing_values = df.isnull().sum()\n",
+        "# missing_values = missing_values[missing_values > 0]\n",
+        "\n",
+        "# print(f\"Dataset loaded successfully with {df.shape[0]} rows and {df.shape[1]} columns.\")\n",
+        "\n",
+        "# if not missing_values.empty:\n",
+        "#     print(\"\\n--- Data Quality Alert: Missing Values Detected ---\")\n",
+        "#     print(missing_values)\n",
+        "# else:\n",
+        "#     print(\"\\nData Quality Check: No missing values detected.\")\n",
+        "\n",
+        "# print(df.head())"
+      ],
+      "outputs": [],
+      "execution_count": 1,
+      "metadata": {
+        "gather": {
+          "logged": 1781463940346
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import mlflow\n",
+        "import os\n",
+        "\n",
+        "# 1. Define the absolute path to your model folder\n",
+        "# Ensure this matches the path you just confirmed in the terminal\n",
+        "model_path = \"/mnt/batch/tasks/shared/LS_root/mounts/clusters/salomescherer1/code/Users/SalomeScherer/ICU_Reliability_Framework/notebooks/icu-mortality-predictor/mlflow-model\"\n",
+        "\n",
+        "# 2. Use the 'file://' URI scheme for absolute local paths\n",
+        "model_uri = f\"file://{model_path}\"\n",
+        "\n",
+        "# 3. Load the model\n",
+        "try:\n",
+        "    model = mlflow.sklearn.load_model(model_uri)\n",
+        "    print(\"Model loaded successfully using MLFlow!\")\n",
+        "except Exception as e:\n",
+        "    print(f\"Error loading model: {e}\")"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "Model loaded successfully using MLFlow!\n"
+        }
+      ],
+      "execution_count": 2,
+      "metadata": {
+        "gather": {
+          "logged": 1781463945278
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from azure.ai.ml import MLClient\n",
+        "from azure.identity import DefaultAzureCredential\n",
+        "import pandas as pd\n",
+        "\n",
+        "def get_ml_client():\n",
+        "    return MLClient.from_config(credential=DefaultAzureCredential())\n",
+        "\n",
+        "def load_data_from_asset(ml_client, data_name, version):\n",
+        "    data_asset = ml_client.data.get(name=data_name, version=version)\n",
+        "    return pd.read_csv(data_asset.path)\n",
+        "\n",
+        "def audit_data(df):\n",
+        "    missing_values = df.isnull().sum()\n",
+        "    return missing_values[missing_values > 0]"
+      ],
+      "outputs": [],
+      "execution_count": 3,
+      "metadata": {
+        "gather": {
+          "logged": 1781463947779
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import sys\n",
+        "import os\n",
+        "\n",
+        "# 1. Add project root to sys.path so we can find 'src'\n",
+        "project_root = os.path.abspath(os.path.join(os.getcwd(), '..'))\n",
+        "if project_root not in sys.path:\n",
+        "    sys.path.append(project_root)\n",
+        "\n",
+        "# 2. Import from your modular source\n",
+        "from src.data_loader import get_ml_client, load_data_from_asset, audit_data\n",
+        "\n",
+        "# 3. Execute logic\n",
+        "ml_client = get_ml_client()\n",
+        "df = load_data_from_asset(ml_client, \"ICU_Mortality_Prediction_Dataset_v1\", \"1\")\n",
+        "missing = audit_data(df)\n",
+        "\n",
+        "# 4. Results\n",
+        "print(f\"Dataset loaded successfully with {df.shape[0]} rows and {df.shape[1]} columns.\")\n",
+        "\n",
+        "if not missing.empty:\n",
+        "    print(\"\\n--- Data Quality Alert: Missing Values Detected ---\")\n",
+        "    print(missing)\n",
+        "else:\n",
+        "    print(\"\\nData Quality Check: No missing values detected.\")\n",
+        "\n",
+        "print(df.head())"
+      ],
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "ModuleNotFoundError",
+          "evalue": "No module named 'src.data_loader'",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+            "Cell \u001b[0;32mIn[4], line 10\u001b[0m\n\u001b[1;32m      7\u001b[0m     sys\u001b[38;5;241m.\u001b[39mpath\u001b[38;5;241m.\u001b[39mappend(project_root)\n\u001b[1;32m      9\u001b[0m \u001b[38;5;66;03m# 2. Import from your modular source\u001b[39;00m\n\u001b[0;32m---> 10\u001b[0m \u001b[38;5;28;01mfrom\u001b[39;00m\u001b[38;5;250m \u001b[39m\u001b[38;5;21;01msrc\u001b[39;00m\u001b[38;5;21;01m.\u001b[39;00m\u001b[38;5;21;01mdata_loader\u001b[39;00m\u001b[38;5;250m \u001b[39m\u001b[38;5;28;01mimport\u001b[39;00m get_ml_client, load_data_from_asset, audit_data\n\u001b[1;32m     12\u001b[0m \u001b[38;5;66;03m# 3. Execute logic\u001b[39;00m\n\u001b[1;32m     13\u001b[0m ml_client \u001b[38;5;241m=\u001b[39m get_ml_client()\n",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'src.data_loader'"
+          ]
+        }
+      ],
+      "execution_count": 4,
+      "metadata": {
+        "gather": {
+          "logged": 1781463948409
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# --- PART 2: ENVIRONMENT PREPARATION ---\n",
+        "# Ensure necessary runtime libraries are present\n",
+        "%pip install azureml-automl-runtime\n",
+        "\n",
+        "# --- PART 3: MODEL LOADING ---\n",
+        "# Ensure your model URI points to the folder containing the 'MLmodel' file\n",
+        "model_uri = \"icu-mortality-predictor/mlflow-model\"\n",
+        "model = mlflow.sklearn.load_model(model_uri)\n",
+        "print(\"Model loaded successfully using MLFlow!\")\n",
+        "\n",
+        "# --- PART 4: SCHEMA ALIGNMENT AND PREDICTION ---\n",
+        "# 1. Extract the exact feature list the model expects\n",
+        "expected_features = list(model.named_steps['datatransformer']._columns_types_mapping.keys())\n",
+        "\n",
+        "# 2. Check for alignment\n",
+        "current_features = df.columns.tolist()\n",
+        "missing_in_current = set(expected_features) - set(current_features)\n",
+        "\n",
+        "print(\"Columns missing from your current data (must be present):\", missing_in_current)\n",
+        "\n",
+        "# 3. Filter your DataFrame to match the model's required schema exactly\n",
+        "# This ensures patient_id and other required features are included if they were in the training set\n",
+        "X_corrected = df[expected_features]\n",
+        "\n",
+        "# 4. Run prediction\n",
+        "df['mortality_predicted'] = model.predict(X_corrected)\n",
+        "print(\"Predictions complete!\")"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {
+        "gather": {
+          "logged": 1781463948639
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# --- PART 4: SCHEMA ALIGNMENT AND PREDICTION ---\n",
+        "\n",
+        "# Ensure the model exists; if not, try to load it\n",
+        "if 'model' not in locals():\n",
+        "    print(\"Model not found in memory. Please load your model first.\")\n",
+        "    # Example: model = joblib.load('my_model_filename.pkl')\n",
+        "else:\n",
+        "    # 1. Extract the exact feature list the model expects\n",
+        "    expected_features = list(model.named_steps['datatransformer']._columns_types_mapping.keys())\n",
+        "\n",
+        "    # 2. Check for alignment\n",
+        "    current_features = df.columns.tolist()\n",
+        "    missing_in_current = set(expected_features) - set(current_features)\n",
+        "\n",
+        "    # 3. IMPLEMENTED SAFETY GUARDRAIL: Hard-stop if schema does not align\n",
+        "    if missing_in_current:\n",
+        "        print(\"!!! SAFETY ALERT: SCHEMA MISMATCH DETECTED !!!\")\n",
+        "        print(f\"Missing features required for safe inference: {missing_in_current}\")\n",
+        "    else:\n",
+        "        print(\"Schema alignment confirmed. Proceeding to inference...\")\n",
+        "        X_corrected = df[expected_features]\n",
+        "        df['mortality_predicted'] = model.predict(X_corrected)\n",
+        "        print(\"Predictions complete!\")"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {
+        "gather": {
+          "logged": 1781463948649
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Optimized Evaluation Code\n",
+        "\n",
+        "import os\n",
+        "import seaborn as sns\n",
+        "import matplotlib.pyplot as plt\n",
+        "from sklearn.metrics import confusion_matrix, classification_report, accuracy_score\n",
+        "\n",
+        "# 1. Ensure the images directory exists\n",
+        "output_dir = 'images'\n",
+        "if not os.path.exists(output_dir):\n",
+        "    os.makedirs(output_dir)\n",
+        "\n",
+        "# 2. Extract the actual labels and your predictions\n",
+        "if 'mortality_predicted' not in df.columns:\n",
+        "    print(\"CRITICAL ERROR: 'mortality_predicted' column not found in DataFrame.\")\n",
+        "    print(\"Please run your model prediction cell first.\")\n",
+        "else:\n",
+        "    print(\"Column found. Proceeding with visualization...\")\n",
+        "    y_true = df['mortality_label']\n",
+        "    y_pred = df['mortality_predicted']\n",
+        "    \n",
+        "    # 3. Print the classification report\n",
+        "    print(\"--- Classification Report ---\")\n",
+        "    print(classification_report(y_true, y_pred))\n",
+        "\n",
+        "    # 4. Create and Visualize the Confusion Matrix\n",
+        "    cm = confusion_matrix(y_true, y_pred)\n",
+        "\n",
+        "    plt.figure(figsize=(8, 6))\n",
+        "    # Using 'Reds' to highlight the failure state\n",
+        "    sns.heatmap(cm, annot=True, fmt='d', cmap='Reds', \n",
+        "                xticklabels=['Predicted Alive', 'Predicted Mortality'],\n",
+        "                yticklabels=['Actual Alive', 'Actual Mortality'])\n",
+        "    plt.ylabel('Actual')\n",
+        "    plt.xlabel('Predicted')\n",
+        "    plt.title('Before State: Confusion Matrix (Accuracy Trap)')\n",
+        "\n",
+        "    # 5. Save the image\n",
+        "    save_path = os.path.join(output_dir, 'Before-Confusion-Matrix.png')\n",
+        "    plt.savefig(save_path, dpi=300, bbox_inches='tight')\n",
+        "    plt.show()\n",
+        "\n",
+        "    # 6. Summary for your Step 6 Documentation\n",
+        "    print(f\"Overall Accuracy: {accuracy_score(y_true, y_pred):.2%}\")\n",
+        "    print(f\"Image saved successfully to {save_path}\")"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {
+        "gather": {
+          "logged": 1781463948661
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "import seaborn as sns\n",
+        "import matplotlib.pyplot as plt\n",
+        "from sklearn.metrics import classification_report\n",
+        "\n",
+        "# 1. Generate the classification report as a dictionary\n",
+        "report_dict = classification_report(y_true, y_pred, output_dict=True)\n",
+        "\n",
+        "# 2. Convert to DataFrame and transpose for better table formatting\n",
+        "df_report = pd.DataFrame(report_dict).transpose()\n",
+        "\n",
+        "# 3. Visualize as a Table Image\n",
+        "plt.figure(figsize=(8, 4))\n",
+        "# We use a heatmap with 'Blues' to display the table values clearly\n",
+        "sns.heatmap(df_report, annot=True, cmap='Blues', fmt='.2f', cbar=False)\n",
+        "\n",
+        "plt.title('Classification Report: Model Performance')\n",
+        "plt.yticks(rotation=0) \n",
+        "\n",
+        "# 4. Save the image\n",
+        "save_path = os.path.join(output_dir, 'Classification-Report-Table.png')\n",
+        "plt.savefig(save_path, dpi=300, bbox_inches='tight')\n",
+        "plt.show()\n",
+        "\n",
+        "print(f\"Classification Report image saved to {save_path}\")"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {
+        "gather": {
+          "logged": 1781463948674
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 1. Ensure 'df' is loaded from your data asset\n",
+        "# If you just restarted, you must re-run your data loading cell here\n",
+        "\n",
+        "# 2. Extract feature names from the internal DataTransformer mapping\n",
+        "# This is the correct way to get the exact columns the model expects\n",
+        "# expected_features = list(model.named_steps['datatransformer']._columns_types_mapping.keys())\n",
+        "\n",
+        "# # 3. Filter your dataframe to match the model's requirements exactly\n",
+        "# # This prevents the DataShapeMismatch error\n",
+        "# X_corrected = df[expected_features]\n",
+        "\n",
+        "# 4. Perform prediction with adjusted threshold\n",
+        "# First, extract the raw probabilities for the mortality class (index 1)\n",
+        "y_probs = model.predict_proba(X_corrected)[:, 1]\n",
+        "\n",
+        "# Apply a lower threshold (e.g., 0.25) to increase sensitivity\n",
+        "# Patients with >25% predicted risk will now be flagged\n",
+        "clinical_threshold = 0.25\n",
+        "df['mortality_predicted'] = (y_probs >= clinical_threshold).astype(int)\n",
+        "\n",
+        "# Optional: Store the probability for your reporting/documentation\n",
+        "df['mortality_probability'] = y_probs\n",
+        "\n",
+        "print(\"Predictions complete with adjusted threshold!\")\n"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {
+        "gather": {
+          "logged": 1781463948685
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.metrics import precision_recall_curve\n",
+        "\n",
+        "# 1. Extract raw probabilities for the mortality class (1)\n",
+        "y_probs = model.predict_proba(X_corrected)[:, 1]\n",
+        "\n",
+        "# 2. Calculate precision, recall, and potential thresholds\n",
+        "precision, recall, thresholds = precision_recall_curve(y_true, y_probs)\n",
+        "\n",
+        "# 3. Calculate F1-score for every threshold point\n",
+        "# The formula is: 2 * (precision * recall) / (precision + recall)\n",
+        "f1_scores = 2 * (precision * recall) / (precision + recall + 1e-10)\n",
+        "\n",
+        "# 4. Identify the threshold that yields the best F1-score\n",
+        "best_idx = f1_scores.argmax()\n",
+        "best_threshold = thresholds[best_idx]\n",
+        "\n",
+        "# 5. Apply the optimized threshold to make final predictions\n",
+        "df['mortality_predicted'] = (y_probs >= best_threshold).astype(int)\n",
+        "df['mortality_probability'] = y_probs\n",
+        "\n",
+        "print(f\"Pipeline optimized! Threshold set to: {best_threshold:.4f}\")\n",
+        "print(f\"Predictions aligned with optimal clinical balance.\")"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {
+        "gather": {
+          "logged": 1781463948694
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import os\n",
+        "import seaborn as sns\n",
+        "import matplotlib.pyplot as plt\n",
+        "from sklearn.metrics import confusion_matrix, classification_report, accuracy_score\n",
+        "\n",
+        "# 1. Ensure the images directory exists\n",
+        "output_dir = 'images'\n",
+        "if not os.path.exists(output_dir):\n",
+        "    os.makedirs(output_dir)\n",
+        "\n",
+        "# 2. Extract the actual labels and your new, balanced predictions\n",
+        "y_true = df['mortality_label']\n",
+        "y_pred = df['mortality_predicted']\n",
+        "\n",
+        "# # 3. Print the classification report\n",
+        "# print(\"--- Classification Report ---\")\n",
+        "# print(classification_report(y_true, y_pred))\n",
+        "\n",
+        "# 4. Create and Visualize the Confusion Matrix\n",
+        "cm = confusion_matrix(y_true, y_pred)\n",
+        "\n",
+        "plt.figure(figsize=(8, 6))\n",
+        "# Using 'Blues' to show the improved, balanced state\n",
+        "sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', \n",
+        "            xticklabels=['Predicted Alive', 'Predicted Mortality'],\n",
+        "            yticklabels=['Actual Alive', 'Actual Mortality'])\n",
+        "plt.ylabel('Actual')\n",
+        "plt.xlabel('Predicted')\n",
+        "# Updated title as requested\n",
+        "plt.title('After state: Confusion Matrix (Clinical Sensitivity)')\n",
+        "\n",
+        "# 5. Save the image BEFORE showing it\n",
+        "save_path = os.path.join(output_dir, 'After-Confusion-Matrix.png')\n",
+        "plt.savefig(save_path, dpi=300, bbox_inches='tight')\n",
+        "plt.show()\n",
+        "\n",
+        "# 6. Summary for your Step 6 Documentation\n",
+        "print(f\"Overall Accuracy: {accuracy_score(y_true, y_pred):.2%}\")\n",
+        "print(f\"Image saved successfully to {save_path}\")"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {
+        "gather": {
+          "logged": 1781463948704
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "import pandas as pd\n",
+        "\n",
+        "# Check if the model can output probabilities\n",
+        "if hasattr(model, \"predict_proba\"):\n",
+        "    # 1. Generate probabilities\n",
+        "    probs = model.predict_proba(X_corrected)[:, 1]\n",
+        "    \n",
+        "    # 2. Existing functionality: Summary Statistics\n",
+        "    print(\"--- Summary Statistics: Predicted Mortality Probabilities ---\")\n",
+        "    prob_stats = pd.Series(probs).describe().to_frame(name=\"Mortality Probability\")\n",
+        "    print(prob_stats)\n",
+        "\n",
+        "    # 3. Clinical Safety Guardrail: Identify patients in the \"Uncertainty Zone\"\n",
+        "    threshold = 0.25\n",
+        "    margin = 0.05 \n",
+        "    \n",
+        "    uncertain_patients = (probs >= (threshold - margin)) & (probs <= (threshold + margin))\n",
+        "    df['needs_human_review'] = uncertain_patients\n",
+        "    \n",
+        "    print(f\"\\n--- Clinical Safety Guardrail ---\")\n",
+        "    print(f\"Total patients in 'Uncertainty Zone': {sum(uncertain_patients)}\")\n",
+        "    print(\"Patients marked with 'needs_human_review' flag.\")\n",
+        "    \n",
+        "else:\n",
+        "    print(\"This model does not support probability output.\")"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {
+        "gather": {
+          "logged": 1781463948715
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 1. Filter for patients requiring manual intervention\n",
+        "review_list = df[df['needs_human_review'] == True].copy()\n",
+        "\n",
+        "# 2. Select columns relevant for a doctor's review\n",
+        "# Ensure you include the patient ID and the probability score for context\n",
+        "display_columns = ['patient_id', 'mortality_probability', 'needs_human_review']\n",
+        "\n",
+        "# 3. Sort by probability (highest risk first) to help prioritize the doctor's time\n",
+        "review_list_sorted = review_list[display_columns].sort_values(by='mortality_probability', ascending=False)\n",
+        "\n",
+        "print(f\"--- Actionable Review List: {len(review_list_sorted)} Patients ---\")\n",
+        "print(review_list_sorted.head(10))\n",
+        "\n",
+        "# 4. Save to CSV for easy distribution\n",
+        "review_list_sorted.to_csv('images/manual_review_list.csv', index=False)\n",
+        "print(\"\\nReview list saved to images/manual_review_list.csv\")"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {
+        "gather": {
+          "logged": 1781463948726
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import hashlib\n",
+        "\n",
+        "def generate_surrogate_id(raw_id):\n",
+        "    \"\"\"\n",
+        "    Creates a one-way hash (pseudonym) for a patient.\n",
+        "    The raw_id is never stored in the analysis files.\n",
+        "    \"\"\"\n",
+        "    salt = \"your_secure_random_salt_here\" # Use a secret, long random string\n",
+        "    return hashlib.sha256((str(raw_id) + salt).encode()).hexdigest()\n",
+        "\n",
+        "# Example: Use this during data loading\n",
+        "# df['patient_id'] = df['raw_medical_record_number'].apply(generate_surrogate_id)"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {
+        "gather": {
+          "logged": 1781463948735
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def check_for_phi(df):\n",
+        "    \"\"\"\n",
+        "    Scans the DataFrame for potential PHI columns that may violate HIPAA.\n",
+        "    This should be run immediately after loading your data.\n",
+        "    \"\"\"\n",
+        "    # Common PHI markers\n",
+        "    phi_indicators = ['name', 'phone', 'address', 'zip', 'ssn', 'birth', 'email']\n",
+        "    \n",
+        "    found_phi = [col for col in df.columns if any(marker in col.lower() for marker in phi_indicators)]\n",
+        "    \n",
+        "    if found_phi:\n",
+        "        print(\"!!! HIPAA SECURITY ALERT: POTENTIAL PHI DETECTED !!!\")\n",
+        "        print(f\"The following columns may contain PHI and should be de-identified: {found_phi}\")\n",
+        "        return False\n",
+        "    else:\n",
+        "        print(\"Data pre-flight check passed: No obvious PHI markers detected.\")\n",
+        "        return True\n",
+        "\n",
+        "# --- Usage in your pipeline ---\n",
+        "# if check_for_phi(df):\n",
+        "#     # Proceed with processing\n",
+        "#     pass\n",
+        "# else:\n",
+        "#     # Stop execution until data is sanitized\n",
+        "#     raise ValueError(\"HIPAA compliance violation: Data contains PHI.\")"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {
+        "gather": {
+          "logged": 1781463948744
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Check if the model can output probabilities\n",
+        "if hasattr(model, \"predict_proba\"):\n",
+        "    probs = model.predict_proba(X_corrected)[:, 1] # Extract just the Mortality (1) class\n",
+        "    \n",
+        "    # Create a summary table of the probability distribution\n",
+        "    # This provides a professional statistical overview for your report\n",
+        "    prob_stats = pd.Series(probs).describe().to_frame(name=\"Mortality Probability Statistics\")\n",
+        "    \n",
+        "    # Optional: Display the first 5 samples as a table\n",
+        "    sample_data = pd.DataFrame(\n",
+        "        probs[:5], \n",
+        "        columns=[\"Probability of Mortality\"], \n",
+        "        index=[f\"Patient {i+1}\" for i in range(5)]\n",
+        "    )\n",
+        "    \n",
+        "    print(\"--- Summary Statistics: Predicted Mortality Probabilities ---\")\n",
+        "    print(prob_stats)\n",
+        "    print(\"\\n--- Top 5 Sample Predictions ---\")\n",
+        "    print(sample_data)\n",
+        "    \n",
+        "    # Save the summary statistics as a CSV for your documentation suite\n",
+        "    prob_stats.to_csv('images/mortality_prob_stats.csv')\n",
+        "    print(\"\\nSummary statistics saved to images/mortality_prob_stats.csv\")\n",
+        "\n",
+        "else:\n",
+        "    print(\"This model does not support probability output.\")"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {
+        "gather": {
+          "logged": 1781463948754
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def predict_with_reliability_framework(data, model, threshold=0.25):\n",
+        "    \"\"\"\n",
+        "    Applies the Reliability Framework:\n",
+        "    1. Schema Alignment (Prevents DataShapeMismatch)\n",
+        "    2. Threshold Optimization (Improves Recall for Mortality)\n",
+        "    3. Clinical Fallback (Flags for human review)\n",
+        "    \"\"\"\n",
+        "    # 1. Dynamic Schema Alignment\n",
+        "    expected_features = list(model.named_steps['datatransformer']._columns_types_mapping.keys())\n",
+        "    X_aligned = data[expected_features]\n",
+        "    \n",
+        "    # 2. Probability Estimation\n",
+        "    probs = model.predict_proba(X_aligned)[:, 1]\n",
+        "    \n",
+        "    # 3. Apply Reliability Threshold & Fallback Logic\n",
+        "    predictions = (probs >= threshold).astype(int)\n",
+        "    \n",
+        "    # Create output with Reliability Flag\n",
+        "    results = data.copy()\n",
+        "    results['mortality_predicted'] = predictions\n",
+        "    results['mortality_probability'] = probs\n",
+        "    results['reliability_flag'] = [\n",
+        "        'Manual Review Required' if p >= threshold else 'Routine Monitoring' \n",
+        "        for p in probs\n",
+        "    ]\n",
+        "    \n",
+        "    return results\n",
+        "\n",
+        "# Implementation in the project\n",
+        "df_final = predict_with_reliability_framework(df, model)\n",
+        "print(\"Reliability framework applied successfully.\")"
+      ],
+      "outputs": [],
+      "execution_count": null,
+      "metadata": {
+        "gather": {
+          "logged": 1781463948767
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python310-sdkv2",
+      "language": "python",
+      "display_name": "Python 3.10 - SDK v2"
+    },
+    "language_info": {
+      "name": "python",
+      "version": "3.10.19",
+      "mimetype": "text/x-python",
+      "codemirror_mode": {
+        "name": "ipython",
+        "version": 3
+      },
+      "pygments_lexer": "ipython3",
+      "nbconvert_exporter": "python",
+      "file_extension": ".py"
+    },
+    "microsoft": {
+      "ms_spell_check": {
+        "ms_spell_check_language": "en",
+        "ms_ignore_dictionary": [
+          "auditability"
+        ]
+      },
+      "host": {
+        "AzureML": {
+          "notebookHasBeenCompleted": true
+        }
+      }
+    },
+    "kernel_info": {
+      "name": "python310-sdkv2"
+    },
+    "nteract": {
+      "version": "nteract-front-end@1.0.0"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 2
+}
